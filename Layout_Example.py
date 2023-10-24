@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # 메인페이지 
-# Iris 사진 나타하기 - https://images.pexels.com/photos/5677011/pexels-photo-5677011.jpeg?auto=compress&cs=tinysrgb&w=200
+# Iris 사진 경로 - https://images.pexels.com/photos/5677011/pexels-photo-5677011.jpeg?auto=compress&cs=tinysrgb&w=200
 # https://raw.githubusercontent.com/huhshin/streamlit/master/data_iris.csv 읽고 나타내기 
 def main_page():
     st.header('Main Page')
