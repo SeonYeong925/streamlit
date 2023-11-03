@@ -91,7 +91,7 @@ def find_hospital(special_m, lati, long):
     city = quote("대구광역시")
     
     # 미션1에서 저장한 병원정보 파일 불러오기 
-    solution_df = pd.read_csv('./daegu_hospital_list.csv')
+    solution_df = pd.read_csv('daegu_hospital_list.csv')
 
     # 응급실 실시간 가용병상 조회
     url_realtime = 'https://apis.data.go.kr/B552657/ErmctInfoInqireService/getEmrrmRltmUsefulSckbdInfoInqire' + '?serviceKey=' + key + '&STAGE1=' + city + '&pageNo=1&numOfRows=100'
@@ -436,7 +436,7 @@ with tab1:
         
         ## 완료시간 저장 버튼
         if st.form_submit_button(label='저장하기'):
-            dispatch_data = pd.read_csv('./119_emergency_dispatch_1.csv', encoding="cp949" )
+            dispatch_data = pd.read_csv('119_emergency_dispatch_1.csv', encoding="cp949" )
             id_num = list(dispatch_data['ID'].str[1:].astype(int))
             max_num = np.max(id_num)
             max_id = 'P' + str(max_num)
@@ -505,7 +505,7 @@ with tab1:
     # -------------------- 완료시간 저장하기 END-------------------- 
 
 # -------------------- Streamlit 웹 화면 구성 End --------------------
-data = pd.read_csv('./119_emergency_dispatch_1.csv', encoding="cp949")
+data = pd.read_csv('119_emergency_dispatch_1.csv', encoding="cp949")
 data_c = data.copy()
 data_c['출동일시'] = pd.to_datetime(data_c['출동일시'])
 
