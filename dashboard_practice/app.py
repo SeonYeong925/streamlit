@@ -4,7 +4,6 @@ import altair as alt
 import pandas as pd
 import numpy as np
 import datetime
-import joblib
 from keras.models import load_model
 from haversine import haversine
 from urllib.parse import quote
@@ -52,17 +51,17 @@ def preprocessing(desease):
 
 
 # predict_disease : AI 모델 중증질환 예측 함수 (미션1 참고)
-# 사전 저장된 모델 파일 필요(119_model_XGC.pkl)
+# 사전 저장된 모델 파일 필요
 # preprocessing 함수 호출 필요 
-# 리턴 변수(4대 중증 예측) : sym_list[pred_y_XGC[0]]
+# 리턴 변수(4대 중증 예측) : sym_list[pred_y[0]]
 def predict_disease(patient_data):
     
     sym_list = ['뇌경색', '뇌출혈', '복부손상', '심근경색']
     test_df = pd.DataFrame(patient_data)
     test_x = preprocessing(test_df)
-    model_XGC = joblib.load('./119_model_XGC.pkl')
-    pred_y_XGC = model_XGC.predict(test_x)
-    return sym_list[pred_y_XGC[0]]
+    model = load_model('./119_model_DNN.keras')
+    pred_y = np.argmax(model.predict(test_x), axis=1)
+    return sym_list[pred_y[0]]
 
 
 # find_hospital : 실시간 병원 정보 API 데이터 가져오기 (미션1 참고)
