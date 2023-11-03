@@ -55,11 +55,24 @@ def preprocessing(desease):
 # preprocessing 함수 호출 필요 
 # 리턴 변수(4대 중증 예측) : sym_list[pred_y[0]]
 def predict_disease(patient_data):
+    data = pd.read_csv('119_emergency_dispatch.csv', encoding='cp949')
+    disease = data[data['중증질환'].isin(['심근경색', '복부손상', '뇌경색', '뇌출혈'])]
+    disease = disease.sample(frac=1).reset_index(drop=True)
+    
+    from sklearn.model_selection import train_test_split
+    X = preprocessing(disease)
+    y = disease['중증질환']
+    train_x, test_x, train_y, test_y = train_test_split(X, y, test_size=0.3, random_state=2023, stratify=y)
+    
+    from xgboost import XGBClassifier
+    model_XGC = XGBClassifier()
+    label_dict = {'뇌경색':0, '뇌출혈':1, '복부손상':2, '심근경색':3}
+    train_y_l = train_y.map(label_dict)
+    model_XGC.fit(train_x, train_y_l)
     
     sym_list = ['뇌경색', '뇌출혈', '복부손상', '심근경색']
     test_df = pd.DataFrame(patient_data)
     test_x = preprocessing(test_df)
-    model_XGC = joblib.load('./119_model_XGC.pkl')
     pred_y_XGC = model_XGC.predict(test_x)
     return sym_list[pred_y_XGC[0]]
 
