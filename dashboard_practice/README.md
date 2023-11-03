@@ -1,4 +1,4 @@
-KT AIVLE SCHOOL 5차 미니프로젝트 실습 
+KT AIVLE SCHOOL 5차 미니프로젝트 실습      
 관련 내용 링크 - https://velog.io/@sy508011/미니프로젝트-5차-1일차-API로-공공데이터-수집하기
 
 3-4일차: 프로토타입 개발하기
