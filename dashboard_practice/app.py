@@ -4,7 +4,7 @@ import altair as alt
 import pandas as pd
 import numpy as np
 import datetime
-from keras.models import load_model
+import joblib
 from haversine import haversine
 from urllib.parse import quote
 import streamlit as st
@@ -59,9 +59,9 @@ def predict_disease(patient_data):
     sym_list = ['뇌경색', '뇌출혈', '복부손상', '심근경색']
     test_df = pd.DataFrame(patient_data)
     test_x = preprocessing(test_df)
-    model = load_model('./119_model_DNN.keras')
-    pred_y = np.argmax(model.predict(test_x), axis=1)
-    return sym_list[pred_y[0]]
+    model_XGC = joblib.load('./119_model_XGC.pkl')
+    pred_y_XGC = model_XGC.predict(test_x)
+    return sym_list[pred_y_XGC[0]]
 
 
 # find_hospital : 실시간 병원 정보 API 데이터 가져오기 (미션1 참고)
